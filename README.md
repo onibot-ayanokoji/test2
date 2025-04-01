@@ -1,1 +1,65 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2"))()local a=game:GetService("Players")local b=game:GetService("Workspace")local c=game:GetService("ReplicatedStorage")local d=game:GetService("VirtualInputManager")local e=game:GetService("Lighting")local f=a.LocalPlayer;local g=f.Character or f.CharacterAdded:Wait()local h=g:WaitForChild("HumanoidRootPart")local i=g:WaitForChild("Humanoid")e.GlobalShadows=false;e.FogEnd=1e6;settings().Rendering.QualityLevel=1;local j={AutoFarm=true,AutoQuest=true,AutoBoss=true,AutoRaid=true,AutoThirdSea=true,AutoNewWorld=true,AutoCollectItems=true,AutoCollectFruits=true,AutoStoreFruits=true,AutoBuyItems=true,AutoSoulGuitar=true,AutoFarmBone=true,AutoFarmEctoplasm=true,AutoFarmCandy=true,AutoItemQuests=true,AutoUpgradeRace=true,ESPEnabled=true,AntiAFK=true,HideUsername=true,HideCharacter=true}if j.HideCharacter then for k,l in ipairs(g:GetDescendants())do if l:IsA("BasePart")then l.Transparency=1 end end end;if j.HideUsername then f.Name="[ONI HUB USER]"end;local function m(n)h.CFrame=n;task.wait(0.1)end;local function o()while j.AutoFarm and task.wait()do local p=nil;local q=math.huge;for k,r in ipairs(b.Enemies:GetChildren())do if r:FindFirstChild("Humanoid")and r.Humanoid.Health>0 then local s=(h.Position-r.HumanoidRootPart.Position).Magnitude;if s<q then q=s;p=r end end end;if p then m(p.HumanoidRootPart.CFrame*CFrame.new(0,0,3))for k,t in ipairs({"X","C","Z","V"})do d:SendKeyEvent(true,t,false,game)task.wait(0.1)end end end end;local function u()while j.AutoQuest and task.wait(5)do c.Remotes.CommF_:InvokeServer("PlayerHunter")c.Remotes.CommF_:InvokeServer("BoatQuest","StartQuest")c.Remotes.CommF_:InvokeServer("CitizenQuest","StartQuest")end end;local function v()while j.AutoBoss and task.wait(10)do for k,w in ipairs({"Don Swan","Dough King","Cursed Captain"})do if b:FindFirstChild(w)then m(b[w].HumanoidRootPart.CFrame*CFrame.new(0,5,10))task.wait(1)for k,t in ipairs({"X","C","Z","V"})do d:SendKeyEvent(true,t,false,game)task.wait(0.1)end end end end end;local function x()while j.AutoRaid and task.wait(30)do c.Remotes.CommF_:InvokeServer("RaidsNpc","Select","Flame")task.wait(1)c.Remotes.CommF_:InvokeServer("RaidsNpc","Start")end end;local function y()while j.AutoCollectItems and task.wait(1)do for k,z in ipairs(b:GetChildren())do if z:IsA("Tool")or z.Name=="Fruit"then m(z.Handle.CFrame)task.wait(0.3)end end;if j.AutoCollectFruits then for k,A in ipairs(b:GetChildren())do if A.Name=="Fruit"then m(A.Handle.CFrame)task.wait(0.3)end end end end end;local function B()while j.AutoItemQuests and task.wait(10)do if not f:FindFirstChild("Saber")then c.Remotes.CommF_:InvokeServer("AbandonQuest")c.Remotes.CommF_:InvokeServer("StartQuest","SaberExpert")end;if not f:FindFirstChild("DarkDagger")then c.Remotes.CommF_:InvokeServer("AbandonQuest")c.Remotes.CommF_:InvokeServer("StartQuest","DarkDagger")end;if not f:FindFirstChild("Pole")then c.Remotes.CommF_:InvokeServer("AbandonQuest")c.Remotes.CommF_:InvokeServer("StartQuest","PoleExpert")end end end;local function C()while j.AutoUpgradeRace and task.wait(30)do local D=f:FindFirstChild("Race")if D then if D.Value=="Ghoul"then c.Remotes.CommF_:InvokeServer("Ectoplasm","Check")c.Remotes.CommF_:InvokeServer("Ectoplasm","BuyCheck")c.Remotes.CommF_:InvokeServer("Ectoplasm","Change")end;if D.Value=="Cyborg"then c.Remotes.CommF_:InvokeServer("CyborgTrainer","Buy")end;if D.Value=="Mink"then c.Remotes.CommF_:InvokeServer("MinkTrainer","Buy")end end end end;local function E()while j.AntiAFK and task.wait(30)do VirtualUser:CaptureController()VirtualUser:ClickButton2(Vector2.new())end end;coroutine.wrap(o)()coroutine.wrap(u)()coroutine.wrap(v)()coroutine.wrap(x)()coroutine.wrap(y)()coroutine.wrap(B)()coroutine.wrap(C)()coroutine.wrap(E)()local F=loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()local G=F:MakeWindow({Name="Blox Fruits Premium",HidePremium=false})local H=G:MakeTab({Name="AutoFarm"})H:AddToggle({Name="AutoFarm",Default=true,Callback=function(I)j.AutoFarm=I end})H:AddToggle({Name="AutoQuest",Default=true,Callback=function(I)j.AutoQuest=I end})H:AddToggle({Name="AutoBoss",Default=true,Callback=function(I)j.AutoBoss=I end})H:AddToggle({Name="AutoRaid",Default=true,Callback=function(I)j.AutoRaid=I end})local J=G:MakeTab({Name="AutoCollect"})J:AddToggle({Name="AutoCollect Items",Default=true,Callback=function(I)j.AutoCollectItems=I end})J:AddToggle({Name="AutoCollect Fruits",Default=true,Callback=function(I)j.AutoCollectFruits=I end})local K=G:MakeTab({Name="Quests"})K:AddToggle({Name="Auto Item Quests",Default=true,Callback=function(I)j.AutoItemQuests=I end})K:AddToggle({Name="Auto Upgrade Race",Default=true,Callback=function(I)j.AutoUpgradeRace=I end})F:Init()
+--[[
+  Onix Hub - O Mais Avançado Script para Blox Fruits
+  Features: AutoFarm, AutoBoss, AutoQuest, Raids, ESP, Coleta Automática, Upgrade de Raça e Muito Mais!
+  Versão: 7.0 (100% Original - Sem Dependências Externas)
+]]
+
+-- Serviços
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local Lighting = game:GetService("Lighting")
+
+-- Configurações
+local Config = {
+    AutoFarm = true,
+    AutoQuest = true,
+    AutoBoss = true,
+    AutoRaid = true,
+    AutoThirdSea = true,
+    AutoNewWorld = true,
+    AutoCollectItems = true,
+    AutoCollectFruits = true,
+    AutoStoreFruits = true,
+    AutoBuyItems = true,
+    AutoSoulGuitar = true,
+    AutoFarmBone = true,
+    AutoFarmEctoplasm = true,
+    AutoFarmCandy = true,
+    AutoItemQuests = true,
+    AutoUpgradeRace = true,
+    ESPEnabled = true,
+    AntiAFK = true,
+    HideUsername = true,
+    HideCharacter = true
+}
+
+-- Player
+local Player = Players.LocalPlayer
+local Character = Player.Character or Player.CharacterAdded:Wait()
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+local Humanoid = Character:WaitForChild("Humanoid")
+
+-- Otimização
+Lighting.GlobalShadows = false
+Lighting.FogEnd = 1e6
+settings().Rendering.QualityLevel = 1
+
+-- Modo Stealth
+if Config.HideCharacter then
+    for _, part in ipairs(Character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Transparency = 1
+        end
+    end
+end
+
+if Config.HideUsername then
+    Player.Name = "[ONIX HUB]"
+end
+
+-- Função de Teleporte
+local function Teleport(CFramePos)
+    pcall(function()
+        HumanoidRootPart.C
